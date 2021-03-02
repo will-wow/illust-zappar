@@ -17,3 +17,5 @@ jobs:
       - run: yarn build
         env:
           CI: true
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
