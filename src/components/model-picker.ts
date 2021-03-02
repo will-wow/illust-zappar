@@ -18,7 +18,14 @@ export class ModelPicker extends BaseComponent {
   $placementUi = document.querySelector("#zappar-placement-ui");
 
   init(): void {
-    this.$form.addEventListener("submit", this.onChooseModel);
+    const urlSlug = this.getSlugFromPath();
+
+    // Get the slug from the url, or the input if no query param.
+    if (urlSlug) {
+      this.setSlug(urlSlug);
+    } else {
+      this.$form.addEventListener("submit", this.onChooseModel);
+    }
   }
 
   @bind
@@ -28,11 +35,20 @@ export class ModelPicker extends BaseComponent {
     const slug = this.$input.value;
     if (!slug) return;
 
+    this.setSlug(slug);
+  }
+
+  setSlug(slug: string): void {
     this.el.setAttribute("firebase-model", {
       slug,
     });
 
     this.$form.style.display = "none";
     this.$placementUi.style.display = "block";
+  }
+
+  getSlugFromPath(): string | null {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("model") || null;
   }
 }

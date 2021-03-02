@@ -1,8 +1,4 @@
-import {
-  BaseComponent,
-  bind,
-  component,
-} from "aframe-typescript-class-components";
+import { BaseComponent, component } from "aframe-typescript-class-components";
 import { fetchArObject } from "../lib/ar-object";
 
 export interface FirebaseModelComponentData {

@@ -1,6 +1,6 @@
 {
   "name": "zappar-aframe-webpack-bootstrap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "scripts": {
     "build": "webpack --mode=production",
@@ -8,12 +8,14 @@
     "remote": "ngrok http https://127.0.0.1:8080",
     "test": "jest",
     "lint": "npm-run-all lint:*",
-    "deploy": "zapworks publish --project='6562675214288546875' --dir dist",
+    "deploy": "zapworks publish --project='6562675214288546875' --dir dist -y",
     "lint:prettier": "prettier --check './**/*.{ts,html,md,json}'",
     "lint:eslint": "eslint './**/*.{ts,js}'",
+    "lint:tsc": "tsc",
     "format": "npm-run-all format:*",
     "format:prettier": "prettier --write './**/*.{ts,html,md,json}'",
-    "format:eslint": "eslint --fix './**/*.{ts,js}'"
+    "format:eslint": "eslint --fix './**/*.{ts,js}'",
+    "format:tsc": "tsc"
   },
   "author": "Will Ockelmann-Wagner <will@willwow.dev>",
   "private": true,
