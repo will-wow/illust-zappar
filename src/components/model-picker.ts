@@ -7,33 +7,22 @@ import {
 /** Load a model from a firebase slug. */
 @component("model-picker")
 export class ModelPicker extends BaseComponent {
-  static schema = {};
-
-  $form = document.querySelector("#model-picker");
-
   $input = (document.querySelector(
-    "#model-picker__input"
-  ) as unknown) as HTMLInputElement;
-
-  $placementUi = document.querySelector("#zappar-placement-ui");
+    "#model-picker"
+  ) as unknown) as HTMLSelectElement;
 
   init(): void {
     const urlSlug = this.getSlugFromPath();
 
     // Get the slug from the url, or the input if no query param.
-    if (urlSlug) {
-      this.setSlug(urlSlug);
-    } else {
-      this.$form.addEventListener("submit", this.onChooseModel);
-    }
+    this.$input.value = urlSlug;
+    this.setSlug(urlSlug);
+    this.$input.addEventListener("change", this.onChooseModel);
   }
 
   @bind
-  async onChooseModel(event: Event): Promise<void> {
-    event.preventDefault();
-
+  async onChooseModel(): Promise<void> {
     const slug = this.$input.value;
-    if (!slug) return;
 
     this.setSlug(slug);
   }
@@ -42,13 +31,10 @@ export class ModelPicker extends BaseComponent {
     this.el.setAttribute("firebase-model", {
       slug,
     });
-
-    this.$form.style.display = "none";
-    this.$placementUi.style.display = "block";
   }
 
-  getSlugFromPath(): string | null {
+  getSlugFromPath(): string {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("model") || null;
+    return urlParams.get("model") || "";
   }
 }
