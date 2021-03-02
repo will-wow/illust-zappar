@@ -12,6 +12,7 @@
     "lint:prettier": "prettier --check './**/*.{ts,html,md,json}'",
     "lint:eslint": "eslint './**/*.{ts,js}'",
     "format": "npm-run-all format:*",
+    "format:prettier": "prettier --write './**/*.{ts,html,md,json}'",
     "format:eslint": "eslint --fix './**/*.{ts,js}'"
   },
   "author": "",

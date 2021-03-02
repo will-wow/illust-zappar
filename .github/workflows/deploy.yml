@@ -1,22 +1,19 @@
 name: Build and deploy
-
-on: [push]
+"on":
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
       - run: yarn install
+      - run: yarn lint
       - run: yarn build
         env:
           CI: true
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
-          CLEAN: true

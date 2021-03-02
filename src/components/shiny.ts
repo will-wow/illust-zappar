@@ -1,7 +1,4 @@
-import {
-  BaseComponent,
-  component,
-} from "aframe-typescript-class-components";
+import { BaseComponent, component } from "aframe-typescript-class-components";
 import { Object3D } from "three";
 
 interface MaterialNode extends Object3D {
