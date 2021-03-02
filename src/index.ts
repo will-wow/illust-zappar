@@ -1,5 +1,9 @@
 import * as AFrame from "aframe";
 import * as ZapparAFrame from "@zappar/zappar-aframe";
+import "aframe-extras";
+
+import "./components/shiny";
+import "./index.scss";
 
 console.log("Using AFrame", AFrame.version);
 console.log("Using ZapparAFrame", ZapparAFrame);
