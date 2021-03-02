@@ -23,7 +23,7 @@ yarn install
 During development, you can use the following command to run a `webpack-dev-server` for testing on your computer or a device on your local network:
 
 ```bash
-yarn dev-server
+yarn start
 ```
 
 You can run ngrok to easily see this on your phone:

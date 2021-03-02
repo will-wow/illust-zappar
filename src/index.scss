@@ -18,4 +18,21 @@ body {
   font-family: sans-serif;
   padding: 10px;
   border-radius: 5px;
+
+  // Will be shown when the model is set.
+  display: none;
+}
+
+#model-picker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    margin-right: 16px;
+  }
 }

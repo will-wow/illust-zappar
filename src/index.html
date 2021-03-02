@@ -16,35 +16,24 @@
         ></a-asset-item>
       </a-assets>
 
+      <a-entity light="type: ambient; color: #BBB"></a-entity>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 0.6"
+        position="-0.5 1 1"
+      ></a-entity>
+
       <a-entity camera zappar-camera></a-entity>
 
       <a-entity zappar-instant="placement-mode: true" id="instant-group">
         <!-- PLACE 3D OBJECTS HERE TO TRACK FROM THE INSTANT ANCHOR -->
-        <a-entity
-          id="ar-object-<%= index %>"
-          class="ar-object"
-          gltf-model="#model"
-          cube-env-map="
-            path: https://storage.googleapis.com/illust-marker-tracking-in-ar.appspot.com/models/adams_place_bridge/;
-            extension: png;
-            reflectivity: 0.5;
-          "
-          shiny='materials: {
-            "BakedMaterial": {
-              "metalness": 1,
-              "roughness": 0.5
-            },
-            "Head": {
-              "metalness": 1,
-              "roughness": 0.5
-            }
-          }'
-          scale="0.001 0.001 0.001"
-          rotation="0 0 0"
-          animation-mixer
-        ></a-entity>
+        <a-entity id="ar-object" model-picker></a-entity>
       </a-entity>
     </a-scene>
+
+    <form id="model-picker">
+      <input id="model-picker__input" placeholder="enter model slug" />
+      <button type="submit" id="model-picker__input">Go</button>
+    </form>
 
     <div id="zappar-placement-ui">Tap here to place the object</div>
   </body>

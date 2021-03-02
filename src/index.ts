@@ -3,6 +3,8 @@ import * as ZapparAFrame from "@zappar/zappar-aframe";
 import "aframe-extras";
 
 import "./components/shiny";
+import "./components/model-picker";
+import "./components/firebase-model";
 import "./index.scss";
 
 console.log("Using AFrame", AFrame.version);
