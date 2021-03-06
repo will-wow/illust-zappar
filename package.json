@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "start": "webpack-dev-server",
-    "remote": "ngrok http https://127.0.0.1:8080",
+    "remote": "ngrok http --region=us --hostname=willwow.ngrok.io http://127.0.0.1:4000",
     "test": "jest",
     "lint": "npm-run-all lint:*",
     "deploy": "zapworks publish --project='6562675214288546875' --dir dist -y",

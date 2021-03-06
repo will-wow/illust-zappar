@@ -26,7 +26,24 @@
 
       <a-entity zappar-instant="placement-mode: true" id="instant-group">
         <!-- PLACE 3D OBJECTS HERE TO TRACK FROM THE INSTANT ANCHOR -->
-        <a-entity id="ar-object" model-picker></a-entity>
+        <a-entity
+          id="ar-object"
+          model-picker="loadingMarker: #loading; placementMarker: #placement"
+        ></a-entity>
+
+        <a-entity
+          id="placement"
+          geometry="primitive: circle; radius: 0.1"
+          material="side: double"
+          visible="false"
+        ></a-entity>
+
+        <a-entity
+          id="loading"
+          geometry="primitive: circle; radius: 0.1; thetaLength: 300;"
+          material="side: double"
+          visible="false"
+        ></a-entity>
       </a-entity>
     </a-scene>
 
@@ -43,5 +60,3 @@
     <div id="zappar-placement-ui">Tap here to place the object</div>
   </body>
 </html>
-
-https://40401ffff673.ngrok.io

@@ -5,6 +5,8 @@ import "aframe-extras";
 import "./components/shiny";
 import "./components/model-picker";
 import "./components/firebase-model";
+import "./components/spinner";
+import "./components/placer";
 import "./index.scss";
 
 console.log("Using AFrame", AFrame.version);
