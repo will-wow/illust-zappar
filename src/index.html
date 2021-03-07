@@ -22,7 +22,14 @@
         position="-0.5 1 1"
       ></a-entity>
 
-      <a-entity camera zappar-camera></a-entity>
+      <a-entity camera zappar-camera>
+        <a-entity
+          id="animated-light"
+          light="type: directional; color: #FFF; intensity: 1; target: #placement"
+          animated-light="colors: red, blue, green"
+          visible="false"
+        ></a-entity>
+      </a-entity>
 
       <a-entity zappar-instant="placement-mode: true" id="instant-group">
         <!-- PLACE 3D OBJECTS HERE TO TRACK FROM THE INSTANT ANCHOR -->
@@ -54,6 +61,7 @@
         <option>antiHaze</option>
         <option>Manekineko</option>
         <option>Voxorium</option>
+        <option>shatter</option>
       </select>
     </div>
 

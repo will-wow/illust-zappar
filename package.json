@@ -1,11 +1,11 @@
 {
   "name": "zappar-aframe-webpack-bootstrap",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "scripts": {
     "build": "webpack --mode=production",
     "start": "webpack-dev-server",
-    "remote": "ngrok http --region=us --hostname=willwow.ngrok.io http://127.0.0.1:4000",
+    "remote": "ngrok http --region=us --hostname=willwow.ngrok.io http://127.0.0.1:5050",
     "test": "jest",
     "lint": "npm-run-all lint:*",
     "deploy": "zapworks publish --project='6562675214288546875' --dir dist -y",

@@ -21,6 +21,7 @@ export interface ArObject {
     directory: string;
     extension: string;
   };
+  colors?: string[];
 }
 
 export const fetchArObjectList = async (): Promise<ArObject[]> => {
