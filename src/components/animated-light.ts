@@ -28,6 +28,3 @@ export class AnimatedLightComponent extends BaseComponent<AnimatedLightData> {
     }
   }
 }
-
-console.log("anim");
-

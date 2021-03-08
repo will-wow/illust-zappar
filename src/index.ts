@@ -8,6 +8,7 @@ import "./components/firebase-model";
 import "./components/spinner";
 import "./components/placer";
 import "./components/animated-light";
+import "./components/animated-material-color";
 import "./index.scss";
 
 console.log("Using AFrame", AFrame.version);

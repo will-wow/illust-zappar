@@ -24,7 +24,6 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
   $placementUi = document.querySelector("#zappar-placement-ui");
   $loadingMarker = document.querySelector("#loading");
   $placementMarker = document.querySelector("#placement");
-  $animatedLight = document.querySelector("#animated-light");
 
   $model?: Entity;
   arObject: ArObject | null = null;
@@ -55,12 +54,22 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
     this.$model.setAttribute("animation-mixer", "");
     this.$model.object3D.visible = false;
 
+    // Addons
+
     if (this.arObject.cubeMap) {
       this.$model.setAttribute("cube-env-map", {
         path: this.arObject.cubeMap.directory,
         extension: this.arObject.cubeMap.extension,
         reflectivity: "0.5",
       });
+    }
+
+    if (this.arObject.animatedMaterialColor) {
+      console.log("anim", this.arObject.animatedMaterialColor.attributes);
+      this.$model.setAttribute(
+        "animated-material-color",
+        this.arObject.animatedMaterialColor.attributes
+      );
     }
 
     this.removeOldModel();
@@ -82,7 +91,6 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
     this.$placementUi.style.display = "none";
     this.$loadingMarker.object3D.visible = true;
     this.$placementMarker.object3D.visible = false;
-    this.$animatedLight.object3D.visible = false;
     this.setModelVisibility(false);
   }
 
@@ -92,7 +100,6 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
     this.$placementUi.style.display = "block";
     this.$loadingMarker.object3D.visible = false;
     this.$placementMarker.object3D.visible = true;
-    this.$animatedLight.object3D.visible = false;
     this.setModelVisibility(false);
   }
 
@@ -104,13 +111,6 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
     this.$loadingMarker.object3D.visible = false;
     this.$placementMarker.object3D.visible = false;
 
-    if (this.arObject?.colors?.length) {
-      this.$animatedLight.setAttribute("animated-light", {
-        colors: this.arObject.colors,
-      });
-      this.$animatedLight.object3D.visible = true;
-    }
-
     this.setModelVisibility(true);
   }
 
@@ -118,7 +118,6 @@ export class FirebaseModelComponent extends BaseComponent<FirebaseModelComponent
     this.$placementUi.style.display = "none";
     this.$loadingMarker.object3D.visible = false;
     this.$placementMarker.object3D.visible = false;
-    this.$animatedLight.object3D.visible = false;
     this.setModelVisibility(false);
   }
 
