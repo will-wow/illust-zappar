@@ -1,5 +1,10 @@
-import { BaseComponent, component } from "aframe-typescript-class-components";
-import { MeshBasicMaterial, Mesh } from "three";
+import {
+  BaseComponent,
+  bind,
+  component,
+} from "aframe-typescript-class-components";
+import { MeshBasicMaterial, Mesh, Color } from "three";
+import anime, { AnimeTimelineInstance } from "animejs";
 
 interface AnimatedMaterialColorData {
   materials: string[];
@@ -15,30 +20,70 @@ export class AnimatedMaterialColorComponent extends BaseComponent<AnimatedMateri
     timing: { type: "number", default: 1000 },
   };
 
-  colors: number[] = [];
-  colorIndex = 0;
-  lastColorChange = 0;
+  /** List of all materials to animate in the model. */
   materials = new Set<MeshBasicMaterial>();
+  modelIsLoaded = false;
+  animation?: AnimeTimelineInstance;
+  /** The animation time (updated on tick). */
+  time = 0;
+  /** The object that will be animated over time. */
+  currentColor = new Color();
 
   update(): void {
-    this.colors = this.data.colors.map((color) => parseInt(color.slice(1), 16));
-    this.colorIndex = this.colors.length - 1;
+    this.animation?.pause();
+    this.startAnimation();
   }
 
-  tick(time: number, _delta: number): void {
-    if (this.lastColorChange < time - this.data.timing) {
-      this.colorIndex = (this.colorIndex + 1) % this.colors.length;
+  tick(time: number, delta: number): void {
+    if (!this.modelIsLoaded) return;
 
-      this.lastColorChange = time;
+    this.time += delta;
+    this.animation?.tick(this.time);
+  }
 
-      this.updateColors();
-    }
+  startAnimation(): void {
+    if (this.data.colors.length <= 1) return;
+
+    // Animate the color, starting with the first color.
+    this.currentColor.set(this.data.colors[0]);
+
+    // Set up a timeline, which will run each change in sequence.
+    this.animation = anime.timeline({
+      easing: "easeOutQuad",
+      duration: this.data.timing,
+      autoplay: false,
+      loop: true,
+      update: () => {
+        this.updateColors();
+      },
+    });
+
+    // Add animations to the other colors.
+    this.data.colors.slice(1).forEach(this.addColorAnimation);
+    // Animate back to the original color at the end of the loop.
+    this.addColorAnimation(this.data.colors[0]);
+
+    // Reset the timer clock.
+    this.time = 0;
+  }
+
+  @bind
+  addColorAnimation(color: string): void {
+    const { r, g, b } = new Color(color);
+
+    this.animation = this.animation?.add({
+      targets: this.currentColor,
+      r,
+      g,
+      b,
+    });
   }
 
   updateColors(): void {
     this.materials.forEach((material) => {
       if (this.data.materials.includes(material.name)) {
-        material.color?.setHex(this.colors[this.colorIndex]);
+        const { r, g, b } = this.currentColor;
+        material.color?.setRGB(r, g, b);
       }
     });
   }
@@ -59,6 +104,10 @@ export class AnimatedMaterialColorComponent extends BaseComponent<AnimatedMateri
 
         materials.forEach((material) => this.materials.add(material));
       });
+
+      // Start the animation when the model is loaded.
+      this.startAnimation();
+      this.modelIsLoaded = true;
     },
   };
 }
